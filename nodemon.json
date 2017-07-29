@@ -1,0 +1,14 @@
+{
+  "script": "src/server.js",
+  "ext": "js html jsx",
+  "env": {
+    "NODE_ENV": "development",
+    "DEBUG": "iOverlander,Reduxible,Reduxible:*,debug,-nodemon"
+  },
+  "ignore": [
+      "build/**/*.js",
+      "src/db/*.sqlite",
+      "src/db/*.sqlite-journal",
+      "container/*"
+  ]
+}

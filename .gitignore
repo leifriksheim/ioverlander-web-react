@@ -1,0 +1,8 @@
+config/local-development.js
+.env
+node_modules
+build
+npm-debug.log
+src/db/session.sqlite
+reports/
+tmp/

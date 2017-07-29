@@ -1,0 +1,18 @@
+.registration-form {
+
+  label {
+    font-weight: bold;
+  }
+
+  label + p {
+    margin: 5px 0;
+  }
+
+
+  .error {
+    color: red;
+    display: inline-block;
+    margin: 0;
+  }
+
+}
