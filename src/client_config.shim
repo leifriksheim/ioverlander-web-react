@@ -4,8 +4,11 @@ var defaults = {
   baseUrl:'http://localhost:3000',
   apiEndpoint: 'http://localhost:3000/api'
 }
-console.log(_.extend(defaults, window.__CONFIG__))
 module.exports =  {
-  get: key => (_.get(_.extend(defaults, window.__CONFIG__), key)),
-  has: key => (_.has(_.extend(window.__CONFIG__), key))
+  get: function (key) {
+    return _.get(_.extend(defaults, window.__CONFIG__), key)
+  },
+  has: function (key) {
+    return _.has(_.extend(window.__CONFIG__), key)
+  }
 };

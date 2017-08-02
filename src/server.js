@@ -36,7 +36,7 @@ var http2 = require('spdy')
 var config = require('config')
 var sessionDB = new Sequelize(config.get('sessionDb.database'), config.get('sessionDb.username'), config.get('sessionDb.password'),config.get('sessionDb'))
 
-var makeClientConfig = require('./client_config')
+var makeClientConfig = require('./client_config').default
 
 // Create session DB
 sessionDB.sync()
@@ -69,10 +69,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(csp(
     {
       directives: {
-        scriptSrc: ["'self'", 'open.mapquestapi.com', `'nonce-${inlineScriptNonce}'`],
-        styleSrc: ["'self'", 'fonts.googleapis.com', 'cdnjs.cloudflare.com', "'unsafe-inline'"],
-        imgSrc: ["'self'", '*.ioverlander.com', 'data:', '*.tile.openstreetmap.org', 'cdnjs.cloudflare.com', '*.tiles.mapbox.com', '*.mqcdn.com', '*.mapquestapi.com', 's3-us-west-2.amazonaws.com'],
-        fontSrc: ["'self'", 'fonts.gstatic.com'],
+        scriptSrc: ["'self'", config.get('assets.host'), 'open.mapquestapi.com', `'nonce-${inlineScriptNonce}'`],
+        styleSrc: ["'self'", config.get('assets.host'), 'fonts.googleapis.com', 'cdnjs.cloudflare.com', "'unsafe-inline'"],
+        imgSrc: ["'self'", config.get('assets.host'),  '*.ioverlander.com', 'data:', '*.tile.openstreetmap.org', 'cdnjs.cloudflare.com', '*.tiles.mapbox.com', '*.mqcdn.com', '*.mapquestapi.com', 's3-us-west-2.amazonaws.com'],
+        fontSrc: ["'self'", config.get('assets.host'), 'fonts.gstatic.com'],
         objectSrc: ["'none'"]
       }
     }
@@ -184,7 +184,6 @@ req.files.forEach((file, index) => {
 
 debug('Setting API Routes')
 enableApi(app)
-
 
 // Handle Requests
 app.use((req, res, next) => {

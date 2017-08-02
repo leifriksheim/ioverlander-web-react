@@ -8,16 +8,53 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const extractSass = new ExtractTextPlugin({
     filename: "style.css",
-    disable: !config.get('assets.compileAssets'),
     allChunks: true
 });
+
+/* TODO: incorporate useful stuff from below (https://stackoverflow.com/questions/35054082/webpack-how-to-build-production-code-and-how-to-use-it)
+plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        // This has effect on the react lib size
+        'NODE_ENV': JSON.stringify('production'),
+      }
+    }),
+    new ExtractTextPlugin("bundle.css", {allChunks: false}),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      compress: {
+        warnings: false, // Suppress uglification warnings
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+      },
+      exclude: [/\.min\.js$/gi] // skip pre-minified libs
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]), //https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0
+    })
+  ],
+*/
+
 
 let configObj = {
   entry: [
     './src/client.js',
   ],
   output: {
-    path: __dirname+'build/',
+    path: config.get('assets.outputPath'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -67,21 +104,19 @@ if (config.get('assets.compileAssets')) {
   configObj.plugins.push(extractSass)
   configObj.module.loaders.push({
     test: /\.scss$/,
-    use: extractSass.extract({
+    use: ExtractTextPlugin.extract({
       use: [
         { loader: "css-loader" },
         { loader: "sass-loader" }
       ],
-      fallback: "style-loader"
     })
   })
   configObj.module.loaders.push({
     test: /\.css$/,
-     use: extractSass.extract({
+     use: ExtractTextPlugin.extract({
       use: [
         { loader: "css-loader" },
       ],
-      fallback: "style-loader"
     }),
   })
 } else {

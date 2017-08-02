@@ -10,6 +10,8 @@ import initializeMap from '../../helpers/initialiseMap'
 import PlaceCard from '../PlaceCard/PlaceCard'
 import getVisibleMapTiles from '../../helpers/getVisibleMapTiles'
 import Lightbox from '../Lightbox/Lightbox'
+import constructStaticAssetUrl from '../../helpers/staticAssetUrl'
+
 let L
 
 if (process.env.BROWSER) {
@@ -112,7 +114,7 @@ class HomePage extends React.Component {
           chunkedLoading: true,
           zoomToBoundsOnClick: true,
           iconCreateFunction: function (cluster) {
-            return L.divIcon({ html: '<div class="cluster-icon" style="background-image: url(/assets/icons/' + location.place.place_category.icon + '.png)"><span>' + cluster.getChildCount() + '</span></div>' })
+            return L.divIcon({ html: '<div class="cluster-icon" style="background-image: url('+constructStaticAssetUrl('icons/' + location.place.place_category.icon + '.png')+')"><span>' + cluster.getChildCount() + '</span></div>' })
           }
         })
       }
@@ -125,7 +127,7 @@ class HomePage extends React.Component {
         let marker = new L.Marker([location.latitude, location.longitude], {
           riseOnHover: true,
           icon: new L.Icon({
-            iconUrl: '/assets/icons/' + location.place.place_category.icon + '-pin.png',
+            iconUrl: constructStaticAssetUrl('icons/' + location.place.place_category.icon + '-pin.png'),
             iconSize: [32, 32],
             iconAnchor: [16, 32],
             popupAnchor: [0, -30],
@@ -330,7 +332,7 @@ class HomePage extends React.Component {
           <ul className='homepage-legend'>
             {this.props.placeTypes.map(type => {
               return <li>
-                <img src={`/assets/icons/${type.icon}.png`} />
+                <img src={constructStaticAssetUrl('icons/'+type.icon+'.png')} />
                 <p>{type.name}</p>
               </li>
             })}

@@ -15,6 +15,7 @@ class Html extends React.Component {
         {searchResults && searchResults.currentPage <= searchResults.pages && searchResults.currentPage > 1 && <link rel='prev' href={`/country_places_list/${searchResults.currentCountry}/${searchResults.currentPage - 1}`} />}
         {searchResults && <link rel='canonical' href={`/country_places_list/${searchResults.currentCountry}/1`} />}
         {!!this.props.cssUrl && <link rel='stylesheet' href={this.props.cssUrl} />}
+        <script dangerouslySetInnerHTML={{__html: "window.__CONFIG__ = "+JSON.stringify(this.props.clientConfig)}} />
       </head>
       <body>
         <div id='app' dangerouslySetInnerHTML={{__html: this.props.html}} />

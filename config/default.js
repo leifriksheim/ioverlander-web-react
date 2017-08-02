@@ -9,6 +9,8 @@ module.exports = {
   assets: {
       // Toggle between serving assets locally with webpack and static assets from cloudfront/s3
       compileAssets: true,
+      outputPath: process.env.ASSETS_OUTPUT_PATH,
+      host: 'staging-bucket.s3.aws',
       urlPrefix: 'https://staging-bucket.s3.aws',
       s3Bucket: 'staging-bucket',
       s3AccessKey: process.env.ASSETS_S3_KEY,
@@ -18,8 +20,8 @@ module.exports = {
   db: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    host: "localhost",
-    database: "ioverlander_production",
+    host: process.env.DB_HOSTNAME,
+    database: "ioverlander",
     dialect: "postgres",
     storage: null
   },
@@ -30,8 +32,8 @@ module.exports = {
   sessionDb:{
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    database: "ioverlander_production_node_sessions",
-    host: "localhost",
+    database: "ioverlander_node_sessions",
+    host: process.env.DB_HOSTNAME,
     dialect: "postgres",
     storage: null,
     underscored: true,

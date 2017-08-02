@@ -6,3 +6,4 @@ npm-debug.log
 src/db/session.sqlite
 reports/
 tmp/
+.DS_STORE
