@@ -6,6 +6,7 @@ import NavLink from '../NavLink/NavLink'
 import getSlug from 'speakingurl'
 import ImageGallery from 'react-image-gallery'
 import ErrorHandler from '../ErrorHandler/ErrorHandler'
+import constructStaticAssetUrl from '../../helpers/staticAssetUrl'
 
 const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
 
@@ -37,7 +38,7 @@ class PlaceDetails extends React.Component {
     const place = this.props.selectedPlace
     new L.Marker([place.location.lat, place.location.lng], {
       icon: new L.Icon({
-        iconUrl: '/assets/icons/' + place.place_type_icon + '-pin.png',
+        iconUrl: constructStaticAssetUrl('icons/' + place.place_type_icon + '-pin.png'),
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -30]
@@ -113,7 +114,7 @@ class PlaceDetails extends React.Component {
     return <main className='content placeDetails'>
       <div className='row'>
         <header className='small-12 columns'>
-          <img src={`/assets/icons/${place.place_type_icon}.png`} />
+          <img src=constructStaticAssetUrl('icons/'+place.place_type_icon+'.png') />
           <h2 className='h3'>{place.name} | {place.place_type}</h2>
           <h3 className='h5'>{place.nearTo ? `Near to ${place.nearTo} in ${place.countries[place.country]}` : `Somewhere in ${place.countries[place.country]}`}</h3>
         </header>

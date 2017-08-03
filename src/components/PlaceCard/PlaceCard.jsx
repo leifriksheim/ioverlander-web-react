@@ -2,6 +2,7 @@ import getSlug from 'speakingurl'
 import moment from 'moment'
 import React from 'react'
 import NavLink from '../NavLink/NavLink'
+import constructAssetUrl from '../../helpers/staticAssetUrl'
 
 export default (props) => {
   const location = props.location
@@ -32,7 +33,7 @@ export default (props) => {
 
   return <div>
     <header className='selected-location-header'>
-      <img src={`/assets/icons/${location.place.place_category.icon}.png`} />
+      <img src=constructAssetUrl('icons/'+location.place.place_category.icon+'.png') />
       <h3 className='h5'>{location.place.name}</h3>
     </header>
     <span className='selected-location-info'>
