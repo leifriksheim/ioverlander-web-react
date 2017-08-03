@@ -220,7 +220,7 @@ app.use((req, res, next) => {
         html: ReactDOMServer.renderToString(routeComponent),
         clientConfig: makeClientConfig(),
         jsUrl: config.get('assets.urlPrefix')+'bundle.js',
-        cssUrl: config.get('assets.compileAssets') ? config.get('assets.urlPrefix')+'/style.css' : false,
+        cssUrl: config.get('assets.compileAssets') ? config.get('assets.urlPrefix')+'style.css' : false,
         title: route.title,
         appplicationState: 'window.app=' + JSON.stringify(appStore.getState()),
         store: appStore,

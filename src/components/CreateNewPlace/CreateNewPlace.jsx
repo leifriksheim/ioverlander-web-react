@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import initialiseMap from '../../helpers/initialiseMap'
 import CreateNewPlaceForm from './CreateNewPlaceForm'
 import { onChange } from '../../actions/validation/validationActions'
+import constructStaticAssetUrl from '../../helpers/staticAssetUrl'
 let L
 
 if (global.window) {
@@ -43,7 +44,7 @@ class CreateNewPlace extends React.Component {
     this.marker = new L.Marker([lat, lng], {
       riseOnHover: true,
       icon: new L.Icon({
-        iconUrl: '/assets/icons/other-pin.png',
+        iconUrl: constructStaticAssetUrl('icons/other-pin.png'),
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -30]
@@ -90,7 +91,7 @@ class CreateNewPlace extends React.Component {
               return <div className='place-type'>
                 <input type='radio' name='place-type' value={ID} id={ID} onChange={(e) => this.setState({ placeType: type.id })} />
                 <label htmlFor={ID}>
-                  <img src={`/assets/icons/${type.icon}.png`} alt={type} />
+                  <img src={constructStaticAssetUrl('icons/'+type.icon+'.png')} alt={type} />
                   <strong>{type.name}</strong>
                   <p>{type.description}</p>
                 </label>

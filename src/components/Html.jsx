@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import constructStaticAssetUrl from '../helpers/staticAssetUrl'
 
 class Html extends React.Component {
   render () {
@@ -8,9 +9,10 @@ class Html extends React.Component {
         <title>{this.props.title || this.props.store.getState().pageTitle}</title>
         <meta charSet='UTF-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/assets/icons/favicon.ico' />
+        <link rel='icon' href={constructStaticAssetUrl("icons/favicon.ico")} />
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css' integrity='sha256-bOWY8F32FGGbNDMPAnwWl/Lv9CKen4IQsNZ4RU9rcs0=' crossOrigin='anonymous' />
         <link href='//fonts.googleapis.com/css?family=Oxygen:400,700|Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css' />
+        {/* TODO: clean up below, shouldn't be in main html block */}
         {searchResults && searchResults.currentPage >= 1 && searchResults.currentPage < searchResults.pages && <link rel='next' href={`/country_places_list/${searchResults.currentCountry}/${searchResults.currentPage + 1}`} />}
         {searchResults && searchResults.currentPage <= searchResults.pages && searchResults.currentPage > 1 && <link rel='prev' href={`/country_places_list/${searchResults.currentCountry}/${searchResults.currentPage - 1}`} />}
         {searchResults && <link rel='canonical' href={`/country_places_list/${searchResults.currentCountry}/1`} />}

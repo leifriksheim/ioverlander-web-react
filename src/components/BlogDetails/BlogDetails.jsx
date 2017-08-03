@@ -3,6 +3,8 @@ import initializeMap from '../../helpers/initialiseMap'
 import NavLink from '../NavLink/NavLink'
 import Lightbox from '../Lightbox/Lightbox'
 import getSlug from 'speakingurl'
+import constructStaticAssetUrl from '../../helpers/staticAssetUrl'
+
 let L
 
 if (global.window) {
@@ -67,7 +69,7 @@ class BlogDetails extends React.Component {
     return <main className='content blogDetails is-flex'>
       <div><div className='row'>
         <header className='small-12 columns'>
-          <img src='/assets/icons/other.png' />
+          <img src={constructStaticAssetUrl('icons/other.png')} />
           <h2 className='h3'>{this.props.selectedBlog.userName}</h2>
           <h3 className='h5'>{countriesText}</h3>
         </header>

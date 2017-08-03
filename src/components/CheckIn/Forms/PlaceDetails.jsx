@@ -3,6 +3,7 @@ import createValidatedForm from '../../Validation/ValidatedForm'
 import { onChange } from '../../../actions/validation/validationActions'
 import request from 'superagent'
 import initialiseMap from '../../../helpers/initialiseMap'
+import constructStaticAssetUrl from '../../../helpers/staticAssetUrl'
 let L
 
 if (global.window) {
@@ -109,7 +110,7 @@ class UpdatePlaceDetailsForm extends React.Component {
       this.marker = new L.Marker([LAT, LNG], {
         riseOnHover: true,
         icon: new L.Icon({
-          iconUrl: '/assets/icons/' + this.props.selectedPlace.place_type_icon + '-pin.png',
+          iconUrl: constructStaticAssetUrl('assets/icons/' + this.props.selectedPlace.place_type_icon + '-pin.png'),
           iconSize: [32, 32],
           iconAnchor: [16, 32],
           popupAnchor: [0, -30]
