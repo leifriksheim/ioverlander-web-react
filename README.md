@@ -25,7 +25,7 @@ database. You can do this with the following commands:
 
 1. Use `docker ps` to get the `container ID` of the postgres server
 2. Enter into the container with: `docker exec -it CONTAINER_ID psql -U user`
-3. `CREATE DATABSE ioverlander; CREATE DATABASE ioverlander_node_sessions;`
+3. `CREATE DATABASE ioverlander; CREATE DATABASE ioverlander_node_sessions;`
 4. Populate the database either from your own dump or from the dev_light.sql.tgz 
    with the following command:
    `docker exec -i CONTAINER_ID psql -U user -d ioverlander < dev_light.sql`
