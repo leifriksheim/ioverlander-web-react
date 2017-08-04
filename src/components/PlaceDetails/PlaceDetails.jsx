@@ -114,7 +114,7 @@ class PlaceDetails extends React.Component {
     return <main className='content placeDetails'>
       <div className='row'>
         <header className='small-12 columns'>
-          <img src=constructStaticAssetUrl('icons/'+place.place_type_icon+'.png') />
+          <img src={constructStaticAssetUrl('icons/'+place.place_type_icon+'.png')} />
           <h2 className='h3'>{place.name} | {place.place_type}</h2>
           <h3 className='h5'>{place.nearTo ? `Near to ${place.nearTo} in ${place.countries[place.country]}` : `Somewhere in ${place.countries[place.country]}`}</h3>
         </header>

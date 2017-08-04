@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function (sequelize, DataTypes) {
-  const vehicles = sequelize.define('vehicles', {
+  const Vehicle = sequelize.define('vehicles', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -43,14 +43,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'vehicles', underscored: true,
-    classMethods: {
-      associate: (models) => {
-        vehicles.belongsTo(models.blogs)
-      }
-    }
   })
+  Vehicle.tableName = 'vehicles'
+  Vehicle.associate = (models) => {
+    Vehicle.belongsTo(models.blogs)
+  }
 
-  return vehicles
+  return Vehicle
 }

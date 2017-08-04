@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function (sequelize, DataTypes) {
-  const locations = sequelize.define('locations', {
+  const Location = sequelize.define('locations', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -94,14 +94,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'locations', underscored: true,
-    classMethods: {
-      associate: (models) => {
-        locations.hasOne(models.places)
-      }
-    }
   })
+  Location.tableName = 'locations'
+  Location.associate = (models) => {
+    Location.hasOne(models.places)
+  }
 
-	return locations
+  return Location
 }

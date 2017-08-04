@@ -23,7 +23,10 @@ module.exports = {
     host: process.env.DB_HOSTNAME,
     database: "ioverlander",
     dialect: "postgres",
-    storage: null
+    storage: null,
+    define: { // TODO: verify this works
+      underscored: true
+    }
   },
   sessionSettings: {
     secure: false,

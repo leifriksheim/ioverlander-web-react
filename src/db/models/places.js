@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function (sequelize, DataTypes) {
-  const places = sequelize.define('places', {
+  const Place = sequelize.define('places', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -79,18 +79,14 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'places', underscored: true,
-    classMethods: {
-      associate: (models) => {
-        places.hasMany(models.check_ins)
-        places.belongsTo(models.locations)
-        places.belongsTo(models.place_categories)
-        places.belongsTo(models.countries)
-        places.hasMany(models.place_translations)
-      }
-    }
   })
-
-  return places
+  Place.tableName = 'places'
+  Place.associate = (models) => {
+    Place.hasMany(models.check_ins)
+    Place.belongsTo(models.locations)
+    Place.belongsTo(models.place_categories)
+    Place.belongsTo(models.countries)
+    Place.hasMany(models.place_translations)
+  }
+  return Place
 }

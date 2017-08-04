@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function (sequelize, DataTypes) {
-  const regions = sequelize.define('regions', {
+  const Region = sequelize.define('regions', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -28,14 +28,10 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'regions', underscored: true,
-    classMethods: {
-      associate: function (models) {
-				regions.hasMany(models.countries)
-			}
-    }
   })
-
-  return regions
+  Region.tableName = 'regions'
+  Region.associate = (models) => {
+    Region.hasMany(models.countries)
+  }
+  return Region
 }

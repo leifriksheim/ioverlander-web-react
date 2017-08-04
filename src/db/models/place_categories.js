@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function (sequelize, DataTypes) {
-  const categories = sequelize.define('place_categories', {
+  const PlaceCategory = sequelize.define('place_categories', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -58,15 +58,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'place_categories',
-    underscored: true,
-    classMethods: {
-      associate: (models) => {
-        categories.hasMany(models.place_categories_property_defs)
-      }
-    }
   })
+  PlaceCategory.tableName = 'place_categories'
+  PlaceCategory.associate = (models) => {
+    PlaceCategory.hasMany(models.place_categories_property_defs)
+  }
 
-  return categories
+  return PlaceCategory
 }

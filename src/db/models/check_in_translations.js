@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  const check_in_translations = sequelize.define('check_in_translations', {
+  const CheckInTranslation = sequelize.define('check_in_translations', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -32,14 +32,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'check_in_translations', underscored: true,
-    classMethods: {
-      associate: (models) => {
-        check_in_translations.belongsTo(models.check_ins)
-      }
-    }
   })
+  CheckInTranslation.tableName = 'check_in_translations'
+  CheckInTranslation.associate = (models) => {
+    CheckInTranslation.belongsTo(models.check_ins)
+  }
 
-  return check_in_translations
+  return CheckInTranslation
 }

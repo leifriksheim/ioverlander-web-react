@@ -2,7 +2,7 @@
 var bcrypt = require('bcrypt-nodejs')
 
 module.exports = function (sequelize, DataTypes) {
-  const users = sequelize.define('users', {
+  const User = sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -85,21 +85,16 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: 'f'
     }
-  }, {
-    tableName: 'users', underscored: true,
-    instanceMethods: {
-      verifyPassword: function (password) {
-        return bcrypt.compareSync(password, this.encrypted_password)
-      }
-    },
-    classMethods: {
-      associate: (models) => {
-        users.belongsToMany(models.roles, {
-          through: models.users_roles
-        })
-      }
-    }
   })
 
-  return users
+  User.tableName = 'users'
+  User.prototype.verifyPassword = (password) =>{
+    bcrypt.compareSync(password, this.encrypted_password)
+  }
+  User.associate = (models) => {
+    User.belongsToMany(models.roles, {
+      through: models.users_roles
+    })
+  }
+  return User
 }

@@ -9,18 +9,20 @@ let config = require('config')
 let dbConfig = config.get('db')
 
 var sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  'username': dbConfig.username,
-  'password': dbConfig.password,
-  'database': dbConfig.name,
-  'host': dbConfig.host,
-  'dialect': dbConfig.dialect,
-  'storage': dbConfig.storage || null,
-  'underscored': true,
-  'logging': false,
-  'pool': {
-    'max': 5,
-    'min': 0,
-    'idle': 10000
+  username: dbConfig.username,
+  password: dbConfig.password,
+  database: dbConfig.name,
+  host: dbConfig.host,
+  dialect: dbConfig.dialect,
+  storage: dbConfig.storage || null,
+  define: {
+    underscored: true,
+  },
+  logging: false,
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
   }
 })
 

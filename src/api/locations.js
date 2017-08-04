@@ -1,7 +1,7 @@
 export default (models) => function (req, res, next) {
   const places = models.locations.findAll({
     where: {
-      'latitude': {
+      latitude: {
         $gte: req.params.south,
         $lte: req.params.north
       },

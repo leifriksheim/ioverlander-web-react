@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function (sequelize, DataTypes) {
-  const check_ins = sequelize.define('check_ins', {
+  const CheckIn = sequelize.define('check_ins', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -59,17 +59,14 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'check_ins', underscored: true, timestamps: false,
-    classMethods: {
-      associate: (models) => {
-        check_ins.hasMany(models.check_in_translations)
-        check_ins.belongsTo(models.places)
-        check_ins.belongsTo(models.locations)
-        check_ins.belongsTo(models.blogs)
-      }
-    }
   })
-
-  return check_ins
+  CheckIn.tableName = 'check_ins'
+  CheckIn.timestamps = false
+  CheckIn.associate = (models) => {
+    CheckIn.hasMany(models.check_in_translations)
+    CheckIn.belongsTo(models.places)
+    CheckIn.belongsTo(models.locations)
+    CheckIn.belongsTo(models.blogs)
+  }
+  return CheckIn
 }

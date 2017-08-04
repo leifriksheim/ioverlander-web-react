@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  const blogs = sequelize.define('blogs', {
+  const Blog = sequelize.define('blogs', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -47,16 +47,12 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     }
-  }, {
-    tableName: 'blogs', underscored: true,
-    classMethods: {
-      associate: (models) => {
-        blogs.hasMany(models.check_ins)
-        blogs.hasOne(models.vehicles)
-        blogs.hasMany(models.places)
-      }
-    }
   })
-
-  return blogs
+  Blog.tableName = 'blogs'
+  Blog.associate = (models) => {
+    Blog.hasMany(models.check_ins)
+    Blog.hasOne(models.vehicles)
+    Blog.hasMany(models.places)
+  }
+  return Blog
 }

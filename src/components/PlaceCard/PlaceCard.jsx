@@ -33,7 +33,7 @@ export default (props) => {
 
   return <div>
     <header className='selected-location-header'>
-      <img src=constructAssetUrl('icons/'+location.place.place_category.icon+'.png') />
+      <img src={constructAssetUrl('icons/'+location.place.place_category.icon+'.png')} />
       <h3 className='h5'>{location.place.name}</h3>
     </header>
     <span className='selected-location-info'>
