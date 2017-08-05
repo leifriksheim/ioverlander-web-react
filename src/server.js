@@ -6,7 +6,7 @@ require('babel-register')({
     [
       "babel-plugin-transform-require-ignore",
       {
-        "extensions": [".scss", ".sass"]
+        "extensions": [".scss", ".sass", ".css"]
       }
     ],
   ],

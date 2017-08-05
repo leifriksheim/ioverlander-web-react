@@ -3,7 +3,7 @@ import createValidatedForm from '../Validation/ValidatedForm'
 import request from 'superagent'
 import { connect } from 'react-redux'
 
-require('./editAccount.scss')}
+require('./editAccount.scss')
 
 const FIELDS = ['user_name', 'user_email', 'user_password', 'user_password_confirm', 'blog_name', 'blog_url', 'user_current_pasword', 'user_email_hidden']
 
