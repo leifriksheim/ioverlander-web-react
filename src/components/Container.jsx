@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
 import { Route, Switch } from 'react-router-dom'
@@ -27,11 +26,11 @@ class Container extends React.Component {
   render () {
     return <div className='app-inner'>
       <Header user={this.props.loggedInUser} />
-        <Switch>
-          {routes.map(route => {
-            return <Route exact {...route} />
-          })}
-        </Switch>
+      <Switch>
+        {routes.map(route => {
+          return <Route exact {...route} key={route.path} />
+        })}
+      </Switch>
       <Footer />
     </div>
   }
@@ -46,7 +45,7 @@ Container.propTypes = {
   handler: PropTypes.func,
   dispatch: PropTypes.func,
   store: PropTypes.object,
-  loggedInUser: PropTypes.oneOfType([PropTypes.object, PropTypes.undefined])
+  loggedInUser: PropTypes.object
 }
 
 export default Container

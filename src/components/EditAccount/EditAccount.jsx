@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import createValidatedForm from '../Validation/ValidatedForm'
 import request from 'superagent'
+import { connect } from 'react-redux'
 
 require('./editAccount.scss')}
 
@@ -153,10 +154,15 @@ EditAccount.contextTypes = {
 
 EditAccount.displayName = 'EditAccountForm'
 
-export default createValidatedForm(EditAccount, FIELDS, validateForm, {
+export default connect((state) => {
+  return {
+    loggedInUser: state.sessionUser,
+    selectedBlog: state.selectedBlog
+  }
+})(createValidatedForm(EditAccount, FIELDS, validateForm, {
   user_email: (props) => props.loggedInUser.email,
   user_email_hidden: (props) => props.loggedInUser.email,
   user_name: (props) => props.loggedInUser.name,
   blog_name: (props) => props.selectedBlog.name,
   blog_url: (props) => props.selectedBlog.url
-})
+}))

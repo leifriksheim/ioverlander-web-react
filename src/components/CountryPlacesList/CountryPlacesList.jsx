@@ -176,12 +176,14 @@ class CountryPlacesList extends React.Component {
 
       <div className='row'>
         <div className='small-12-columns'>
-          <ReactPaginate pageNum={this.props.searchResults.pages}
+          <ReactPaginate
+            pageCount={this.props.searchResults.pages}
             pageRangeDisplayed={5}
             marginPagesDisplayed={2}
             forceSelected={this.state.currentPage - 1}
             containerClassName='searchResults-pagination'
-            clickCallback={this.paginate} />
+            clickCallback={this.paginate}
+          />
         </div>
       </div>
 
@@ -217,7 +219,7 @@ class CountryPlacesList extends React.Component {
             </fieldset>
           </section>
 
-         <section className='searchResults-filters-group'>
+          <section className='searchResults-filters-group'>
             <h5>Place last visited</h5>
             <fieldset>
               <ul>
@@ -230,8 +232,6 @@ class CountryPlacesList extends React.Component {
               </ul>
             </fieldset>
           </section>
-
-         
 
           <section className='searchResults-filters-group'>
             <h5>Required Amenities</h5>
@@ -254,12 +254,14 @@ class CountryPlacesList extends React.Component {
 
       <div className='row'>
         <div className='small-12-columns'>
-          <ReactPaginate pageNum={this.props.searchResults.pages}
+          <ReactPaginate
+            pageCount={this.props.searchResults.pages}
             pageRangeDisplayed={5}
             marginPagesDisplayed={2}
             forceSelected={this.state.currentPage - 1}
             containerClassName='searchResults-pagination'
-            clickCallback={this.paginate} />
+            clickCallback={this.paginate}
+          />
         </div>
       </div>
     </main>

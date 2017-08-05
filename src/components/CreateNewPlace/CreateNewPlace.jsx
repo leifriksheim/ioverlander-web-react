@@ -3,6 +3,7 @@ import initialiseMap from '../../helpers/initialiseMap'
 import CreateNewPlaceForm from './CreateNewPlaceForm'
 import { onChange } from '../../actions/validation/validationActions'
 import constructStaticAssetUrl from '../../helpers/staticAssetUrl'
+import { connect } from 'react-redux'
 let L
 
 if (global.window) {
@@ -34,8 +35,6 @@ class CreateNewPlace extends React.Component {
 
       if (!this.marker) { this.createMarker(this.state.lat, this.state.lng) }
     })
-
-    this.context.dispatch(require('../../actions/getPlaceTypes').getPlaceTypesFromAPI())
   }
 
   createMarker (lat, lng) {
@@ -126,7 +125,6 @@ class CreateNewPlace extends React.Component {
 
     </main>
   }
-
 }
 
 CreateNewPlace.contextTypes = {
@@ -137,4 +135,9 @@ CreateNewPlace.propTypes = {
   store: PropTypes.object
 }
 
-export default CreateNewPlace
+export default connect((state) => {
+  return {
+    placeTypes: state.placeTypes,
+    selectedPlace: state.selectedPlace
+  }
+})(CreateNewPlace)
