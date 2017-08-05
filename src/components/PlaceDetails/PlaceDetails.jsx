@@ -8,6 +8,8 @@ import ImageGallery from 'react-image-gallery'
 import ErrorHandler from '../ErrorHandler/ErrorHandler'
 import constructStaticAssetUrl from '../../helpers/staticAssetUrl'
 
+import { connect } from 'react-redux'
+
 const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
 
 let L
@@ -133,7 +135,7 @@ class PlaceDetails extends React.Component {
             slideInterval={2000}
             onImageError={this.onImageError} />}
 
-          <a style={{width: '100%', marginBottom: 20, textAlign: 'center'}} className='btn show-for-small' href={`/check_ins/new?place=${this.props.selectedPlace.id}`}>Been here? Check in!</a>
+          <a style={{width: '100%', marginBottom: 20, textAlign: 'center'}} className='btn show-for-small' href={`/places/${this.props.selectedPlace.id}/check_in`}>Been here? Check in!</a>
         </div>
 
         <div className='small-12 medium-3 medium-pull-6 columns'>
@@ -164,7 +166,7 @@ class PlaceDetails extends React.Component {
         </div>
 
         <div className='small-12 medium-3 columns'>
-          <a style={{width: '100%', marginBottom: 20, textAlign: 'center'}} className='btn check-in-btn' href={`/check_ins/new?place=${this.props.selectedPlace.id}`}>Been here? Check in!</a>
+          <a style={{width: '100%', marginBottom: 20, textAlign: 'center'}} className='btn check-in-btn' href={`/places/${this.props.selectedPlace.id}/check_in`}>Been here? Check in!</a>
 
           <h4>Latest Check-ins</h4>
 
@@ -207,4 +209,9 @@ PlaceDetails.propTypes = {
   selectedPlace: PropTypes.object
 }
 
-export default PlaceDetails
+export default connect((state) => {
+  return {
+    selectedPlace: state.selectedPlace,
+    err: state.selectedPlace.err
+  }
+})(PlaceDetails)
