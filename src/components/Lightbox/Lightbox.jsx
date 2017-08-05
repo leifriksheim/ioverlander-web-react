@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 
-if (process.env.BROWSER) {
-  require('./Lightbox.scss')
-}
+require('./Lightbox.scss')
 
 class Lightbox extends React.Component {
 

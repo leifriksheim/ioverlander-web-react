@@ -1,9 +1,17 @@
-require('babel-register')({
-  extensions: ['.es6', '.es', '.jsx', '.js']
-})
-
 // dotenv loads a local ".env" file and adds any variables defined inside to process.env
 require('dotenv').config()
+
+require('babel-register')({
+  plugins: [
+    [
+      "babel-plugin-transform-require-ignore",
+      {
+        "extensions": [".scss", ".sass"]
+      }
+    ],
+  ],
+  extensions: ['.es6', '.es', '.jsx', '.js']
+})
 
 if (process.env.NODE_ENV === 'production') {
   require('pmx').init()

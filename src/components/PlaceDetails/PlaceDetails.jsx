@@ -14,9 +14,7 @@ const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\
 
 let L
 
-if (process.env.BROWSER) {
-  require('./placeDetails.scss')
-}
+require('./placeDetails.scss')
 
 if (global.window) {
   L = require('leaflet')

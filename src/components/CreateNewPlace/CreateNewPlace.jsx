@@ -9,9 +9,7 @@ if (global.window) {
   L = require('leaflet')
 }
 
-if (process.env.BROWSER) {
-  require('./createPlace.scss')
-}
+require('./createPlace.scss')
 
 class CreateNewPlace extends React.Component {
 

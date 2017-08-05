@@ -125,9 +125,6 @@ if (config.get('assets.compileAssets')) {
     test: /\.css$/,
     use: ["style-loader", "css-loader"],
   })
-  configObj.plugins.push(new webpack.DefinePlugin({
-    'process.env.BROWSER': JSON.stringify(true)
-  }))
 }
 
 module.exports = configObj

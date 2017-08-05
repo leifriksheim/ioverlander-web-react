@@ -12,9 +12,7 @@ if (global.window) {
   L = require('leaflet')
 }
 
-if (process.env.BROWSER) {
-  require('./blogDetails.scss')
-}
+require('./blogDetails.scss')
 
 class BlogDetails extends React.Component {
 

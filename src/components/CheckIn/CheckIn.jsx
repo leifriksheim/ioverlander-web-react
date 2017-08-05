@@ -6,9 +6,8 @@ import EditPlaceDetailsForm from './Forms/PlaceDetails'
 import request from 'superagent'
 import { connect } from 'react-redux'
 
-if (process.env.BROWSER) {
-  require('./checkIn.scss')
-}
+require('./checkIn.scss')
+
 
 class CheckIn extends React.Component {
 

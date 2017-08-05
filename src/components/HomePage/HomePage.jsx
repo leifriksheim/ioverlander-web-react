@@ -15,10 +15,9 @@ import { connect } from 'react-redux'
 
 let L
 
-if (process.env.BROWSER) {
-  require('./homepageMap.scss')
-  require('./placeTypeFilter.scss')
-}
+require('./homepageMap.scss')
+require('./placeTypeFilter.scss')
+
 
 if (global.window) {
   L = require('leaflet')

@@ -9,9 +9,7 @@ import { bindActionCreators } from 'redux'
 
 import { searchForPlacesAction } from '../../actions/searchForPlacesAction'
 
-if (process.env.BROWSER) {
-  require('./countryPlacesList.scss')
-}
+require('./countryPlacesList.scss')
 
 class CountryPlacesList extends React.Component {
   constructor (props) {

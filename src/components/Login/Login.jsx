@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-if (process.env.BROWSER) {
-  require('./Login.scss')
-}
+require('./Login.scss')
 
 class Login extends React.Component {
 
