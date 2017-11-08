@@ -13,9 +13,6 @@ require('babel-register')({
   extensions: ['.es6', '.es', '.jsx', '.js']
 })
 
-// dotenv loads a local ".env" file and adds any variables defined inside to process.env
-require('dotenv').config()
-
 // Dependencies
 const debug = require('debug')('iOverlander:Server')
 const express = require('express')
