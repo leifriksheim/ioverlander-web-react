@@ -1,9 +1,9 @@
 module.exports = {
-  // Add dev speoific settings here
+  // Add dev specific settings here
   assets: {
       compileAssets: true,
-      host: 'ec2-54-173-20-206.compute-1.amazonaws.com:3001',
-      urlPrefix: 'http://ec2-54-173-20-206.compute-1.amazonaws.com:3001/'
+      host: 'static.new-ioverlander.com',
+      urlPrefix: 'http://static.new-ioverlander.com/'
   },
 
   sessionSettings: {

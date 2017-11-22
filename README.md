@@ -1,6 +1,10 @@
-# iOverlander Web App
-
+iOverlander.com node.js app
+===========================
 This is still a big work in progress. Needs cleaning up and refactoring. Want to contribute? Reach out to us!
+
+
+Installation
+============
 
 1. Clone this repo
 2. Run `yarn install`
@@ -12,8 +16,19 @@ This is still a big work in progress. Needs cleaning up and refactoring. Want to
 ![](http://i.giphy.com/yXBqba0Zx8S4.gif)
 
 
+Contributing
+============
+iOverland is a volunteer driven projects. We raise the funds needed to run our 
+infrastructure from our users, publish our code under an opensource license. 
 
-# Running a staging environment with docker compose
+iOverlander.com wouldn't exist without the thousands of travelers checking in, 
+adding new places and maintaining our data. iOverlander wouldn't be possible
+without your help in development of this site either. If you'd like to con-
+tribute in any way, feel free to reach out to us!
+
+
+Running a staging environment with docker-compose
+=================================================
 
 ## Setting up the database
 The standard compose file sets up the postgres container to mount the postgres 
