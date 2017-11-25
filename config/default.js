@@ -10,9 +10,10 @@ module.exports = {
       // Toggle between serving assets locally with webpack and static assets from cloudfront/s3
       compileAssets: true,
       outputPath: process.env.ASSETS_OUTPUT_PATH,
+      fileHash: undefined,
       host: 'staging-bucket.s3.aws',
-      urlPrefix: 'https://staging-bucket.s3.aws',
-      s3Bucket: 'staging-bucket',
+      urlPrefix: 'https://ioverlander-asset-test-21.s3.aws',
+      s3Bucket: 'ioverlander-asset-test-21',
       s3AccessKey: process.env.ASSETS_S3_KEY,
       s3AccessToken: process.env.ASSETS_S3_TOKEN
   },

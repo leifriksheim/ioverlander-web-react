@@ -143,12 +143,20 @@ app.use((req, res, next) => {
       })
     })
 
+    let jsUrl = config.get('assets.urlPrefix')+'bundle'
+    let cssUrl = config.get('assets.urlPrefix')+'style'
+    if (config.get('assets.fileHash')) {
+      jsUrl +='.'+config.get('assets.fileHash')
+      cssUrl +='.'+config.get('assets.fileHash')
+    }
+    jsUrl += '.js'
+    cssUrl += '.css'
+
     const routeHandler = React.createElement(Html, {
       html: ReactDOMServer.renderToString(routeComponent),
       clientConfig: makeClientConfig(),
-      jsUrl: config.get('assets.urlPrefix') + 'bundle.js',
-      cssUrl: config.get('assets.compileAssets') ? config.get('assets.urlPrefix') + 'style.css' : false,
-      // title: route.title,
+      jsUrl: jsUrl,
+      cssUrl: config.get('assets.compileAssets') ? cssUrl : false,
       appplicationState: 'window.app=' + JSON.stringify(appStore.getState()),
       store: appStore,
       nonce: inlineScriptNonce

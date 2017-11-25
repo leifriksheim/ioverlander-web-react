@@ -5,6 +5,9 @@ module.exports = {
   domain: domain,
   baseUrl: baseUrl,
   apiEndpoint: baseUrl+"/api",
+  assets: {
+    fileHash: process.env.GIT_SHA1,
+  },
   sessionSettings: {
     secure: true,
   },

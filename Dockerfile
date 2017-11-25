@@ -1,6 +1,7 @@
 FROM node:8
 MAINTAINER Matt Malone <swapthatspoon@gmail.com>
 
+ARG GIT_SHA1
 RUN mkdir -p /app
 WORKDIR /app
 
