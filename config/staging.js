@@ -1,12 +1,15 @@
-module.exports = {
-  // Add dev specific settings here
-  assets: {
-      compileAssets: true,
-      host: 'static.new-ioverlander.com',
-      urlPrefix: 'http://static.new-ioverlander.com/'
-  },
+let domain = "www.new-ioverlander.com"
+let baseUrl = "http://"+domain
 
+module.exports = {
+  domain: domain,
+  baseUrl: baseUrl,
+  apiEndpoint: baseUrl+"/api",
+  assets: {
+    compileAssets: true,
+    fileHash: process.env.GIT_SHA1,
+  },
   sessionSettings: {
-    secret: 'insecure-session-secret',
-  }
+    secure: true,
+  },
 }

@@ -8,7 +8,6 @@ case $1 in
         yarn run compile-assets
         ;;
     run)
-        if [ -n "$BUILD_ASSETS_ON_LAUNCH" ]; then yarn run compile-assets; fi;
         node src/server.js
         ;;
     develop-run)
