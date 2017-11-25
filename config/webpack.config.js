@@ -1,6 +1,5 @@
 require('dotenv').config()
 const config = require('config')
-
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -9,17 +8,13 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const S3Plugin = require('webpack-s3-plugin')
 
-const extractSass = new ExtractTextPlugin({
-    filename: "style.[git-revision-hash].css",
-    allChunks: true
-});
-
 let configObj = {
   entry: [
     './src/client.js',
   ],
   output: {
-    filename: 'bundle.[git-revision-hash].js',
+    path: __dirname +'/build',
+    filename: 'bundle.js',
     publicPath: '/'
   },
   resolve: {
@@ -63,35 +58,23 @@ let configObj = {
 }
 
 if (config.get('assets.compileAssets')) {
-  configObj.plugins.push(extractSass);
-  configObj.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
-  configObj.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
-  configObj.module.loaders.push({
-    test: /\.scss$/,
-    use: ExtractTextPlugin.extract({
-      use: [
-        { loader: "css-loader" },
-        { loader: "sass-loader" }
-      ],
-    })
+  // Production settings
+  configObj.output.filename = 'bundle.[git-revision-hash].js';
+ 
+  const extractSass = new ExtractTextPlugin({
+    filename: "style.[git-revision-hash].css",
+    allChunks: true
   });
-  configObj.module.loaders.push({
-    test: /\.css$/,
-     use: ExtractTextPlugin.extract({
-      use: [
-        { loader: "css-loader" },
-      ],
-    }),
-  });
-  configObj.plugins.push(
+  configObj.plugins = configObj.plugins.concat([
+    extractSass, 
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size
         'NODE_ENV': JSON.stringify('production'),
       }
-    })
-  );
-  configObj.plugins.push(
+    }),
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       compress: {
@@ -105,18 +88,14 @@ if (config.get('assets.compileAssets')) {
         comments: false,
       },
       exclude: [/\.min\.js$/gi] // skip pre-minified libs
-    })
-  );
-  configObj.plugins.push(
+    }),
     new CompressionPlugin({
       asset: "[path].gz[query]",
       algorithm: "gzip",
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
       minRatio: 0
-    })
-  );
-  configObj.plugins.push(
+    }),
     new S3Plugin({
       exclude: /.*\.(html)/,
       s3Options: {
@@ -127,7 +106,25 @@ if (config.get('assets.compileAssets')) {
         Bucket: config.get('assets.s3Bucket')
       }
     })
-  )
+  ]);
+  configObj.module.loaders = configObj.module.loaders.concat([
+    {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        use: [
+          { loader: "css-loader" },
+          { loader: "sass-loader" }
+        ],
+      })
+    }, {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        use: [
+          { loader: "css-loader" },
+        ],
+      }),
+    }
+  ]);
 } else {
   configObj.module.loaders.push({
     test: /\.scss$/,

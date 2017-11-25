@@ -5,12 +5,11 @@ module.exports = {
   domain: domain,
   baseUrl: baseUrl,
   apiEndpoint: baseUrl+"/api",
-
   assets: {
       // Toggle between serving assets locally with webpack and static assets from cloudfront/s3
       compileAssets: true,
       outputPath: process.env.ASSETS_OUTPUT_PATH,
-      fileHash: undefined,
+      fileHash: null,
       host: 'staging-bucket.s3.aws',
       urlPrefix: 'https://ioverlander-asset-test-21.s3.aws',
       s3Bucket: 'ioverlander-asset-test-21',
