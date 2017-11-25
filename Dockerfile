@@ -10,7 +10,8 @@ RUN npm install yarn
 COPY yarn.lock /app/
 COPY package.json /app/
 RUN yarn install
-RUN echo "export GIT_SHA1=$GIT_SHA1" >> .bashrc
+
+RUN echo "export GIT_SHA1=$GIT_SHA1" >> /root/.bashrc
 COPY . /app/
 
 ENTRYPOINT ["/app/container/docker-entrypoint.sh"]
