@@ -29,6 +29,12 @@ tribute in any way, feel free to reach out to us!
 
 Running a staging environment with docker-compose
 =================================================
+## Defaults
+The compose configuration configures two persistent data directories: `dev_assets` 
+& `dev_pgdata`. The default path for these is `../` (the repository's parent folder)
+
+## docker-compose up
+Launch the containers by running: `cd container && docker-compose -f container.yml up`
 
 ## Setting up the database
 The standard compose file sets up the postgres container to mount the postgres 
@@ -46,3 +52,5 @@ database. You can do this with the following commands:
    with the following command:
    `docker exec -i CONTAINER_ID psql -U user -d ioverlander < dev_light.sql`
 
+## Accessing the site:
+The page should now be accessible at `http://localhost:3000` from your container host.

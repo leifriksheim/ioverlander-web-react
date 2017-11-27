@@ -105,8 +105,6 @@ app.use((req, res, next) => {
   const context = {}
   const actionsToDispatch = []
 
-  console.log(req.user ? req.user.role : 'NOT_LOGGED_IN')
-
   routes.some(route => {
     const match = matchPath(req.url, Object.assign(
       {},
@@ -143,8 +141,8 @@ app.use((req, res, next) => {
       })
     })
 
-    let jsUrl = config.get('assets.urlPrefix')+'bundle'
-    let cssUrl = config.get('assets.urlPrefix')+'style'
+    let jsUrl = config.get('assets.urlPrefix')+'/bundle'
+    let cssUrl = config.get('assets.urlPrefix')+'/style'
     if (config.get('assets.fileHash')) {
       jsUrl +='.'+config.get('assets.fileHash')
       cssUrl +='.'+config.get('assets.fileHash')
@@ -173,12 +171,10 @@ app.use((req, res, next) => {
 })
 
 // Start Server
-debug('Setting port')
+app.listen(3000)
+debug('Listening on port 3000')
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(3000)
-  debug('Listening on port 3000')
-} else {
+/*} else {
 // TODO: Refactor letsencrypt
   let greenlock = require('greenlock-express')
   greenlock.create({
@@ -190,3 +186,4 @@ if (process.env.NODE_ENV !== 'production') {
   }).listen(80, 443)
   debug('Listening on ' + config.get('baseUrl'))
 }
+*/

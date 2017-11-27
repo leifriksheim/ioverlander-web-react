@@ -1,22 +1,30 @@
-let domain = "localhost"
-let baseUrl = "http://"+domain+":3000"
+// Local URL
+// The server currently issues local http requests to fetch data via the API while
+// rendering the page with redux. Long term we should refactor the code to do execute
+// these requests internally within node.js
+let localDomain = "localhost"
+let localBaseUrl = "http://"+domain+":3000"
+
+// Public URL
+let domain = "staging.ioverlander.com"
+let baseUrl = "http://"+domain
 
 module.exports = {
   domain: domain,
   baseUrl: baseUrl,
   apiEndpoint: baseUrl+"/api",
+  publicApiEndpoint: baseUrl+"/api",
   assets: {
       // Toggle between serving assets locally with webpack and static assets from cloudfront/s3
       compileAssets: true,
       outputPath: process.env.ASSETS_OUTPUT_PATH,
       fileHash: null,
-      host: 'staging-bucket.s3.aws',
-      urlPrefix: 'https://ioverlander-asset-test-21.s3.aws',
+      host: 's3.amazonaws.com',
+      urlPrefix: 'https://s3.amazonaws.com/ioverlander-asset-test-21',
       s3Bucket: 'ioverlander-asset-test-21',
       s3AccessKey: process.env.ASSETS_S3_KEY,
       s3AccessToken: process.env.ASSETS_S3_TOKEN
   },
-
   db: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,

@@ -8,6 +8,7 @@ case $1 in
         yarn run compile-assets
         ;;
     run)
+        source /root/.bashrc
         node src/server.js
         ;;
     develop-run)

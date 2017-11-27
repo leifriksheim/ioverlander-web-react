@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
   // Add dev speoific settings here
+  publicApiEndpoint: "http://localhost:3000/api",
   assets: {
       compileAssets: false,
       outputPath: path.resolve(__dirname, '../build/'),

@@ -1,4 +1,5 @@
-let domain = "www.new-ioverlander.com"
+// Public URL
+let domain = "staging.ioverlander.com"
 let baseUrl = "http://"+domain
 
 module.exports = {

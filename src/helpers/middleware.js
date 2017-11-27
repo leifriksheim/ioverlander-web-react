@@ -56,9 +56,10 @@ export function healthCheck () {
 }
 
 // Cross-Origin-Resource-Sharing
+// TODO: clean this up
 export function cors () {
   return (req, res, next) => {
-    if (req.hostname.indexOf('ioverlander') > -1 || req.hostname === 'localhost') {
+    if (req.hostname.indexOf('ioverlander.com') > -1 || req.hostname === 'localhost') {
       res.set('Access-Control-Allow-Origin', '*')
     }
     next()
