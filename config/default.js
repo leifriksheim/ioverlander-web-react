@@ -3,7 +3,7 @@
 // rendering the page with redux. Long term we should refactor the code to do execute
 // these requests internally within node.js
 let localDomain = "localhost"
-let localBaseUrl = "http://"+domain+":3000"
+let localBaseUrl = "http://"+localDomain+":3000"
 
 // Public URL
 let domain = "staging.ioverlander.com"
