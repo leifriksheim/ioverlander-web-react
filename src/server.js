@@ -141,8 +141,8 @@ app.use((req, res, next) => {
       })
     })
 
-    let jsUrl = config.get('assets.urlPrefix')+'/bundle'
-    let cssUrl = config.get('assets.urlPrefix')+'/style'
+    let jsUrl = config.get('assets.urlPrefix')+'bundle'
+    let cssUrl = config.get('assets.urlPrefix')+'style'
     if (config.get('assets.fileHash')) {
       jsUrl +='.'+config.get('assets.fileHash')
       cssUrl +='.'+config.get('assets.fileHash')
