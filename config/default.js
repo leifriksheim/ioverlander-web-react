@@ -12,7 +12,7 @@ let baseUrl = "http://"+domain
 module.exports = {
   domain: domain,
   baseUrl: baseUrl,
-  apiEndpoint: baseUrl+"/api",
+  apiEndpoint: localBaseUrl+"/api",
   publicApiEndpoint: baseUrl+"/api",
   assets: {
       // Toggle between serving assets locally with webpack and static assets from cloudfront/s3
@@ -20,7 +20,7 @@ module.exports = {
       outputPath: process.env.ASSETS_OUTPUT_PATH,
       fileHash: null,
       host: 's3.amazonaws.com',
-      urlPrefix: 'https://s3.amazonaws.com/ioverlander-asset-test-21',
+      urlPrefix: 'https://s3.amazonaws.com/ioverlander-asset-test-21/',
       s3Bucket: 'ioverlander-asset-test-21',
       s3AccessKey: process.env.ASSETS_S3_KEY,
       s3AccessToken: process.env.ASSETS_S3_TOKEN
