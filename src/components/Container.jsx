@@ -28,7 +28,34 @@ class Container extends React.Component {
       <Header user={this.props.loggedInUser} />
       <Switch>
         {routes.map(route => {
-          return <Route exact {...route} key={route.path} />
+          // Below code is a bit of a hack to get Matt's redux stuff working with client side
+          // rendering only. The app's structure is unfortunately not that well thought out:
+          // The components are not made to consume AJAX apis but rely on the state to be assembled
+          // by the server. I've ripped this out but fixed only the smallest amount needed in 
+          // the components to get it to work. Major cleanup should still be done.
+          return <Route exact path={route.path} key={route.path} render={props => {
+            const actionsToDispatch = [];
+
+            if (Array.isArray(route.action)) {
+              route.action.forEach(action => actionsToDispatch.push([action, props.match]))
+            } else {
+              actionsToDispatch.push([route.action, props.match])
+            }
+            let waitForRender = Promise.resolve()
+            if (actionsToDispatch.length) {
+              waitForRender = Promise.all(actionsToDispatch.map(action => {
+                return this.props.store.dispatch(action[0](action[1], null))
+              }))
+            }
+
+            waitForRender.then(() => {
+              this.props.store.dispatch({
+                type: 'SET_FLASH',
+                flashMessage: 'ERROR'
+              })
+            })
+            return React.createElement(route.component, props)
+          }}/>
         })}
       </Switch>
       <Footer />

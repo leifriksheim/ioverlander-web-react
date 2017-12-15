@@ -9,6 +9,9 @@ const entities = new AllHtmlEntities()
 class FindByCountry extends React.Component {
 
   render () {
+    if (!this.props.placesData) {
+      return null
+    }
     return <main className='content'>
       <div className='row'>
         <div className='small-12 columns'>

@@ -15,18 +15,6 @@ class CountryPlacesList extends React.Component {
   constructor (props) {
     super(props)
 
-    const defaultPlaceTypeValues = {}
-    Object.keys(props.searchResults.placeTypes).forEach((type, i) => {
-      type = props.searchResults.placeTypes[i]
-      const untick = props.searchResults.filter.excludeTypes.indexOf(type.id.toString()) > -1
-      defaultPlaceTypeValues[type.id] = !untick
-    })
-
-    const defaultAmenityValues = {}
-    Object.keys(filters.amenities).forEach((type) => {
-      const alreadyTicked = props.searchResults.filter.amenities.indexOf(filters.amenities[type]) > -1
-      defaultAmenityValues[filters.amenities[type]] = alreadyTicked
-    })
 
     const lastVisitedRanges = [
         ['', "Any"],
@@ -39,10 +27,8 @@ class CountryPlacesList extends React.Component {
     ]
 
     this.state = {
-      placeTypes: Object.assign({}, defaultPlaceTypeValues),
-      amenities: Object.assign({}, defaultAmenityValues),
-      lastVisited: props.searchResults.filter.lastVisited || '',
-      currentPage: props.searchResults.currentPage
+      placeTypes: null, // Object.assign({}, defaultPlaceTypeValues),
+      amenities: null, // Object.assign({}, defaultAmenityValues),
     }
 
     this.lastVisitedRanges = lastVisitedRanges;
@@ -152,7 +138,37 @@ class CountryPlacesList extends React.Component {
     }
   }
 
+  prepDefaults () {
+    if (this.props.searchResults && !this.state.placeTypes) {
+      const defaultPlaceTypeValues = {}
+      Object.keys(this.props.searchResults.placeTypes).forEach((type, i) => {
+        type = this.props.searchResults.placeTypes[i]
+        const untick = this.props.searchResults.filter.excludeTypes.indexOf(type.id.toString()) > -1
+        defaultPlaceTypeValues[type.id] = !untick
+      })
+  
+      const defaultAmenityValues = {}
+      Object.keys(filters.amenities).forEach((type) => {
+        const alreadyTicked = this.props.searchResults.filter.amenities.indexOf(filters.amenities[type]) > -1
+        defaultAmenityValues[filters.amenities[type]] = alreadyTicked
+      })
+      this.setState({
+        placeTypes: defaultPlaceTypeValues, amenities: defaultAmenityValues,       
+        lastVisited: this.props.searchResults.filter.lastVisited || '',
+        currentPage: this.props.searchResults.currentPage
+      })
+    }
+  }
+
+  componentDidMount () {
+    this.prepDefaults()
+  }
+  componentDidUpdate () {
+    this.prepDefaults()  
+  }
   render () {
+    if (!this.props.searchResults || !this.state.placeTypes) return null;
+
     const excludedTypes = Object.keys(this.state.placeTypes).filter(type => !this.state.placeTypes[type])
     const includedAmenities = Object.keys(this.state.amenities).filter(type => this.state.amenities[type])
     const excludeQS = excludedTypes.length ? `exclude=${excludedTypes.join(',')}` : ''

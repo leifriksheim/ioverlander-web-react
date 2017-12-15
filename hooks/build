@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "Building for hash: $GIT_SHA1"
-docker build --build-arg GIT_SHA1=$GIT_SHA1 -t $IMAGE_NAME .

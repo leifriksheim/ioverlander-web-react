@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import { navigate } from '../../actions/navigationActions'
 
 class NavLink extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {

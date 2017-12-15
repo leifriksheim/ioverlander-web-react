@@ -18,25 +18,22 @@ let L
 require('./homepageMap.scss')
 require('./placeTypeFilter.scss')
 
+L = require('leaflet')
 
-if (global.window) {
-  L = require('leaflet')
-
-  L.OverlanderOverviewIcon = L.Icon.extend({
-    createIcon: function () {
-      var div = document.createElement('div')
-      var numdiv = document.createElement('div')
-      var numberSpan = document.createElement('span')
-      numdiv.setAttribute('class', 'number-marker')
-      numdiv.setAttribute('style', `background-image: url(${constructStaticAssetUrl('/icons/blue-orb.png')})`)
-      numdiv.appendChild(numberSpan)
-      numberSpan.innerHTML = this.options['number']
-      div.appendChild(numdiv)
-      this._setIconStyles(div, 'icon')
-      return div
-    }
-  })
-}
+L.OverlanderOverviewIcon = L.Icon.extend({
+  createIcon: function () {
+    var div = document.createElement('div')
+    var numdiv = document.createElement('div')
+    var numberSpan = document.createElement('span')
+    numdiv.setAttribute('class', 'number-marker')
+    numdiv.setAttribute('style', `background-image: url(${constructStaticAssetUrl('/icons/blue-orb.png')})`)
+    numdiv.appendChild(numberSpan)
+    numberSpan.innerHTML = this.options['number']
+    div.appendChild(numdiv)
+    this._setIconStyles(div, 'icon')
+    return div
+  }
+})
 
 const PLACE_TYPES = {}
 
@@ -53,11 +50,7 @@ class HomePage extends React.Component {
       filteredTypes: PLACE_TYPES,
       selectAllChecked: true
     }
-
-    props.placeTypes.forEach(type => {
-      PLACE_TYPES[type.name] = true
-    })
-
+    
     this.addCountryLayer = this.addCountryLayer.bind(this)
     this.getMarkersInBounds = this.getMarkersInBounds.bind(this)
     this.doSearch = this.doSearch.bind(this)
@@ -172,15 +165,7 @@ class HomePage extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps) {
-    if (!prevProps.countryPlaceCounts && this.props.countryPlaceCounts) {
-      this.addCountryLayer()
-    } else if (this.props.mapMarkers && this.props.mapMarkers.length) {
-      this.addPlaceMarkers()
-    }
-  }
-
-  componentDidMount () {
+  setUpMap() {
     let params = {}
     if (window.location.search) {
       window.location.search
@@ -205,7 +190,7 @@ class HomePage extends React.Component {
     }
 
     this.context.dispatch(getCountryPlaceCounts())
-
+    // TODO: remove this timeOut
     setTimeout(() => {
       this.showHideDynamicLayers()
     }, 150)
@@ -217,6 +202,23 @@ class HomePage extends React.Component {
     this.map.on('zoomend', () => {
       this.showHideDynamicLayers()
     })
+  }
+
+  componentDidUpdate (prevProps) {
+    if (!this.map) {
+      this.setUpMap()
+    }
+    if (!prevProps.countryPlaceCounts && this.props.countryPlaceCounts) {
+      this.addCountryLayer()
+    } else if (this.props.mapMarkers && this.props.mapMarkers.length) {
+      this.addPlaceMarkers()
+    }
+  }
+
+  componentDidMount () {
+    if (!this.map && this.props.placeTypes) {
+      this.setUpMap()
+    }
   }
 
   showHideDynamicLayers (supressCall) {
@@ -268,6 +270,14 @@ class HomePage extends React.Component {
   }
 
   render () {
+    if (!this.props.placeTypes) {
+      return null
+    }
+
+    this.props.placeTypes.forEach(type => {
+      PLACE_TYPES[type.name] = true
+    })
+
     const PLACE_TYPE_COUNT = Object.keys(this.state.filteredTypes).filter((type) => {
       return this.state.filteredTypes[type]
     }).length
