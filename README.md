@@ -34,7 +34,7 @@ The compose configuration configures two persistent data directories: `dev_asset
 & `dev_pgdata`. The default path for these is `../` (the repository's parent folder)
 
 ## docker-compose up
-Launch the containers by running: `cd container && docker-compose -f container.yml up`
+Launch the containers by running: `cd container && docker-compose -f compose.yml up`
 
 ## Setting up the database
 The standard compose file sets up the postgres container to mount the postgres 
